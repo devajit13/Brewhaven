@@ -1,0 +1,117 @@
+/* ==========================================================================
+   ABOUT-PREVIEW.CSS
+   Styles for the "About Preview" section — a two-column layout with
+   an image on one side and story text on the other.
+
+   This section introduces LAYERING elements with "position: absolute"
+   and "z-index" — here, used to place a decorative colored square
+   slightly behind the image, a common "premium" design detail.
+   ========================================================================== */
+
+.about-preview {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+/* --------------------------------------------------------------------------
+   TWO-COLUMN GRID
+   --------------------------------------------------------------------------
+   Unlike our other grids (equal columns), this one uses two DIFFERENT
+   column widths: "1fr 1.1fr" gives the text column slightly more room
+   than the image column. Grid doesn't require equal columns — you can
+   size each one independently.
+-------------------------------------------------------------------------- */
+.about-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   IMAGE COLUMN + DECORATIVE LAYERED SHAPE
+   --------------------------------------------------------------------------
+   ".about-preview-image-wrap" is set to "position: relative", which
+   means it becomes the "anchor" for any child using
+   "position: absolute" — that child will position itself relative to
+   THIS box, not the whole page.
+-------------------------------------------------------------------------- */
+.about-preview-image-wrap {
+  position: relative;
+}
+
+/* The decorative square sits BEHIND the image. */
+.about-preview-accent {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: 16px;
+  z-index: 1;
+  /* z-index: 1 places this square in a lower "stack layer" than the
+     image (which we'll give z-index: 2 below), so the square peeks
+     out from behind the image's top-left corner instead of covering
+     it entirely. */
+}
+
+/* The image placeholder itself (a styled box standing in for a real
+   photo — see the note at the bottom of this file). */
+.about-preview-image {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  /* "aspect-ratio" locks a box's height to a ratio of its width —
+     4/5 means "for every 4 units wide, be 5 units tall" — a portrait
+     shape, without needing to calculate an exact pixel height. */
+  border-radius: 16px;
+  background: linear-gradient(135deg, #8a6a4d 0%, #6f4e37 60%, #4a3223 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   TEXT COLUMN
+-------------------------------------------------------------------------- */
+.about-preview-text .section-header {
+  text-align: left;
+  margin: 0 0 1.2rem;
+  /* Overriding the usual centered ".section-header" — here the text
+     is left-aligned since it sits next to an image instead of
+     standing alone. */
+}
+
+.about-preview-text p {
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+}
+
+.about-preview-text .btn {
+  margin-top: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   NOTE: USING A REAL PHOTO INSTEAD OF THE GRADIENT PLACEHOLDER
+   --------------------------------------------------------------------------
+   1. Save a photo of your shop/team into images/about/story.jpg
+   2. Replace the <div class="about-preview-image">...</div> in
+      index.html with:
+
+      <img src="images/about/story.jpg"
+           alt="Inside Brewhaven coffee shop"
+           class="about-preview-image" />
+
+   3. Update this rule so it works for an <img> instead of a <div>:
+
+      .about-preview-image {
+        object-fit: cover;
+      }
+
+      (Keep the other properties — position, z-index, aspect-ratio,
+      border-radius — exactly as they are; just add object-fit.)
+-------------------------------------------------------------------------- */

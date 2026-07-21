@@ -1,0 +1,130 @@
+/* ==========================================================================
+   TESTIMONIALS.CSS
+   Styles for the "Customer Testimonials" section — a slider that
+   shows one customer quote at a time, with Prev/Next arrows and dot
+   indicators. The actual slide-switching logic lives in js/script.js;
+   this file only controls what everything LOOKS like.
+   ========================================================================== */
+
+.testimonials {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   SLIDER WRAPPER
+-------------------------------------------------------------------------- */
+.testimonial-slider {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   INDIVIDUAL SLIDES
+   --------------------------------------------------------------------------
+   Every slide starts hidden. JavaScript adds the ".active" class to
+   exactly ONE slide at a time — that's the one the visitor sees.
+-------------------------------------------------------------------------- */
+.testimonial-slide {
+  display: none;
+  animation: slideFadeIn var(--transition-medium);
+}
+
+.testimonial-slide.active {
+  display: block;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.testimonial-stars {
+  color: var(--color-accent);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.testimonial-quote {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--color-dark);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.testimonial-role {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+/* --------------------------------------------------------------------------
+   PREV / NEXT ARROW BUTTONS
+   --------------------------------------------------------------------------
+   Positioned absolutely so they sit to the left/right of the slide
+   text, vertically centered, without disturbing the slide layout.
+-------------------------------------------------------------------------- */
+.testimonial-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Combined with "top: 50%", this is the standard recipe for
+     perfectly vertical-centering an element of unknown height:
+     push it down 50% of the parent's height, then pull it back up
+     50% of ITS OWN height. */
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  font-size: 1rem;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.testimonial-arrow:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.testimonial-arrow.prev {
+  left: -60px;
+}
+
+.testimonial-arrow.next {
+  right: -60px;
+}
+
+/* --------------------------------------------------------------------------
+   DOT INDICATORS
+-------------------------------------------------------------------------- */
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.testimonial-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.testimonial-dot.active {
+  background-color: var(--color-primary);
+  transform: scale(1.3);
+}

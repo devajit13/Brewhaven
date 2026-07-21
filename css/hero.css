@@ -1,0 +1,148 @@
+/* ==========================================================================
+   HERO.CSS
+   Styles for the big, full-width welcome banner at the top of the
+   Home page — the first thing a visitor sees.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   HERO SECTION WRAPPER
+   --------------------------------------------------------------------------
+   We use a background-image here instead of an <img> tag because this
+   image is DECORATIVE (part of the page's design), not CONTENT the
+   user needs to read. Decorative images belong in CSS; meaningful
+   images (like a menu item photo) belong in HTML <img> tags.
+-------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  /* "position: relative" on the parent lets us later use
+     "position: absolute" on a child (like the dark overlay) to
+     place it precisely on top of this section. */
+  min-height: 90vh;
+  /* "vh" = "viewport height" — 1vh is 1% of the visible browser
+     window height. 90vh means "90% of the screen height", so the
+     hero always fills almost the whole first screen, no matter
+     what device it's viewed on. */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* PLACEHOLDER background: a warm coffee-toned gradient standing in
+     for a real photo. Swap the file path below (once you add your
+     own image to images/hero/) to use a real photograph instead —
+     see the note at the bottom of this file. */
+  background-image: linear-gradient(
+      to right,
+      rgba(43, 29, 22, 0.75),
+      rgba(43, 29, 22, 0.35)
+    ),
+    linear-gradient(135deg, #4a3223 0%, #6f4e37 55%, #8a6a4d 100%);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   HERO CONTENT
+-------------------------------------------------------------------------- */
+.hero-content {
+  max-width: 600px;
+  padding: 2rem;
+  animation: heroFadeIn 1s ease forwards;
+  /* "animation" tells this element to run the @keyframes rule named
+     "heroFadeIn" (defined below) once, over 1 second, using an "ease"
+     timing curve (starts fast, ends slow — feels natural). */
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  color: var(--color-white);
+  margin-bottom: 1.2rem;
+}
+
+/* A styled <span> inside the heading, so ONE word can stand out in
+   the accent color instead of making the whole heading one color. */
+.hero-title span {
+  color: var(--color-accent);
+}
+
+.hero-description {
+  font-size: 1.05rem;
+  color: #efe6db;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* A secondary, outlined button style — used next to our solid
+   ".btn" button so the two actions ("Order Now" vs "View Menu")
+   feel like a primary and a secondary choice. */
+.btn-outline {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  border: 2px solid var(--color-white);
+  border-radius: 50px;
+  color: var(--color-white);
+  font-weight: 600;
+  transition: background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   KEYFRAME ANIMATION
+   --------------------------------------------------------------------------
+   "@keyframes" lets us define a multi-step animation. "from" is the
+   starting state, "to" is the ending state. Here, the hero content
+   starts invisible and shifted down slightly, then fades/slides
+   into its normal position — a subtle, professional entrance effect.
+-------------------------------------------------------------------------- */
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   NOTE: USING A REAL PHOTO INSTEAD OF THE GRADIENT PLACEHOLDER
+   --------------------------------------------------------------------------
+   1. Save your photo as images/hero/hero-bg.jpg
+   2. Replace the "background-image" property above with:
+
+      background-image: linear-gradient(
+          to right,
+          rgba(43, 29, 22, 0.75),
+          rgba(43, 29, 22, 0.35)
+        ),
+        url("../images/hero/hero-bg.jpg");
+
+   Keeping the dark gradient layered on top of the photo (like above)
+   is important — it's what keeps the white heading text readable
+   over a busy photo background.
+-------------------------------------------------------------------------- */

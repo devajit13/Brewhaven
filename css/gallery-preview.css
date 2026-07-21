@@ -1,0 +1,128 @@
+/* ==========================================================================
+   GALLERY-PREVIEW.CSS
+   Styles for the "Gallery Preview" section — a small photo grid on
+   the Home page that teases the full Gallery page.
+
+   This introduces the classic "hover zoom" effect: an image that
+   scales up slightly on hover, cropped neatly by a container with
+   "overflow: hidden".
+   ========================================================================== */
+
+.gallery-preview {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+.gallery-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   GALLERY ITEM (THE CROPPING FRAME)
+   --------------------------------------------------------------------------
+   "overflow: hidden" is the key property here: it clips anything
+   inside this box that spills past its edges. Combined with the
+   photo scaling up on hover (below), this creates a "zoom that stays
+   inside its frame" effect instead of the photo growing past its box.
+-------------------------------------------------------------------------- */
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* The placeholder "photo" itself (a gradient standing in for a real
+   image — see the note at the bottom of this file). Using a distinct
+   gradient angle/color per item just so the grid doesn't look
+   completely uniform before real photos are added. */
+.gallery-item-photo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: transform var(--transition-medium);
+  /* Transitioning "transform" (not just adding it on :hover) is what
+     makes the zoom feel smooth instead of snapping instantly. */
+}
+
+.gallery-item:nth-child(1) .gallery-item-photo {
+  background: linear-gradient(135deg, #6f4e37, #2b1d16);
+}
+.gallery-item:nth-child(2) .gallery-item-photo {
+  background: linear-gradient(135deg, #c4a484, #6f4e37);
+}
+.gallery-item:nth-child(3) .gallery-item-photo {
+  background: linear-gradient(135deg, #8a6a4d, #4a3223);
+}
+.gallery-item:nth-child(4) .gallery-item-photo {
+  background: linear-gradient(135deg, #d9a441, #6f4e37);
+}
+.gallery-item:nth-child(5) .gallery-item-photo {
+  background: linear-gradient(135deg, #4a3223, #8a6a4d);
+}
+.gallery-item:nth-child(6) .gallery-item-photo {
+  background: linear-gradient(135deg, #2b1d16, #c4a484);
+}
+
+/* On hover, scale the PHOTO up — not the frame. Because the frame
+   has "overflow: hidden", the extra size gets clipped off neatly
+   instead of pushing other grid items around. */
+.gallery-item:hover .gallery-item-photo {
+  transform: scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   HOVER OVERLAY
+   --------------------------------------------------------------------------
+   A semi-transparent dark layer + icon that fades in on hover, hinting
+   "click to view the full gallery".
+-------------------------------------------------------------------------- */
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  /* "inset: 0" is shorthand for "top: 0; right: 0; bottom: 0; left: 0;"
+     all at once — it stretches this element to perfectly cover its
+     positioned parent. */
+  background-color: rgba(43, 29, 22, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.gallery-item:hover .gallery-item-overlay {
+  opacity: 1;
+}
+
+.gallery-preview-cta {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}
+
+/* --------------------------------------------------------------------------
+   NOTE: USING REAL PHOTOS INSTEAD OF THE GRADIENT PLACEHOLDERS
+   --------------------------------------------------------------------------
+   1. Save 6 photos into images/gallery/ (e.g. shot-1.jpg ... shot-6.jpg)
+   2. In index.html, replace each
+      <div class="gallery-item-photo"><i class="..."></i></div>
+      with:
+
+      <img src="images/gallery/shot-1.jpg"
+           alt="Latte art close-up"
+           class="gallery-item-photo" />
+
+   3. Delete the 6 ":nth-child(...) { background: ... }" rules above —
+      they're only needed for the gradient placeholders. Everything
+      else (overflow: hidden, transform: scale, the overlay) keeps
+      working exactly the same with real <img> tags.
+-------------------------------------------------------------------------- */

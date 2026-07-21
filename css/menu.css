@@ -1,0 +1,60 @@
+/* ==========================================================================
+   MENU.CSS
+   Styles specific to the full Menu page (menu.html). This page reuses
+   the ".menu-filters" and ".menu-item" classes and JavaScript we
+   already built for the Home page's Popular Menu preview (in
+   popular-menu.css and js/script.js) — proof that building reusable
+   components pays off. This file only adds what's DIFFERENT about
+   the full page: more breathing room, a section intro, and a bigger
+   item count.
+   ========================================================================== */
+
+.full-menu {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+.full-menu-intro {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--color-text-light);
+}
+
+/* --------------------------------------------------------------------------
+   On the full menu page, items get a little more breathing room than
+   the compact Home page preview, since there's no other content
+   competing for space on this page.
+-------------------------------------------------------------------------- */
+.full-menu .menu-grid {
+  gap: 1.8rem 2.5rem;
+  /* Two values in "gap" means "row-gap column-gap" — here, less space
+     between rows (1.8rem) than between columns (2.5rem), which keeps
+     the list feeling tight vertically but airy horizontally. */
+}
+
+.full-menu .menu-item {
+  padding: 1.5rem;
+  background-color: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(43, 29, 22, 0.05);
+}
+
+.full-menu .menu-item:hover {
+  background-color: var(--color-white);
+  box-shadow: 0 10px 25px rgba(43, 29, 22, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   RESULT COUNT / EMPTY STATE
+   --------------------------------------------------------------------------
+   A small helper line showing how many items match the current
+   filter — updated by JavaScript. Not strictly necessary, but a nice
+   detail on a page where the list length changes as you click tabs.
+-------------------------------------------------------------------------- */
+.full-menu-count {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+}

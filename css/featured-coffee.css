@@ -1,0 +1,154 @@
+/* ==========================================================================
+   FEATURED-COFFEE.CSS
+   Styles for the "Featured Coffee" section on the Home page — a
+   showcase of 2-3 signature drinks in a card layout.
+
+   This is where we introduce CSS GRID. We already used Flexbox for
+   the navbar and hero (great for lining things up in ONE direction —
+   a row or a column). Grid is better when you want to lay things out
+   in ROWS AND COLUMNS at the same time, like a set of even cards.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SECTION WRAPPER
+-------------------------------------------------------------------------- */
+.featured {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+/* Reusable section header style: a small eyebrow label + big title +
+   short subtitle, centered. We'll reuse this ".section-header" pattern
+   for almost every section on the site, so it earns its own class
+   instead of being copy-pasted with new names each time. */
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.6rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.section-subtitle {
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   CSS GRID: THE CARD LAYOUT
+   --------------------------------------------------------------------------
+   "display: grid" turns this container into a grid layout.
+
+   "grid-template-columns: repeat(3, 1fr)" creates exactly 3 columns,
+   each taking up an equal fraction ("1fr" = "1 fraction unit") of the
+   available space. If you wanted 4 equal columns instead, you'd write
+   repeat(4, 1fr).
+
+   "gap" works the same way it did in Flexbox — it adds space BETWEEN
+   grid items without needing manual margins.
+-------------------------------------------------------------------------- */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   INDIVIDUAL COFFEE CARD
+-------------------------------------------------------------------------- */
+.coffee-card {
+  background-color: var(--color-white);
+  border-radius: 16px;
+  padding: 2.5rem 1.8rem;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(43, 29, 22, 0.06);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+/* Lift the whole card slightly and deepen its shadow on hover — a
+   common "premium" feeling interaction for product cards. */
+.coffee-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(43, 29, 22, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   CARD IMAGE PLACEHOLDER
+   --------------------------------------------------------------------------
+   Until you add real product photos, each card shows a circular icon
+   badge instead. This keeps the layout looking finished right away.
+   See the note at the bottom of this file for how to swap in real
+   photos later.
+-------------------------------------------------------------------------- */
+.coffee-card-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  /* border-radius: 50% on a square (equal width/height) element turns
+     it into a perfect circle. */
+  background-color: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: var(--color-primary);
+}
+
+.coffee-card-name {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.coffee-card-description {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+}
+
+.coffee-card-price {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   NOTE: USING REAL PRODUCT PHOTOS INSTEAD OF ICON BADGES
+   --------------------------------------------------------------------------
+   1. Save each photo (square, e.g. 400x400px) into images/coffee/
+      as, e.g., caramel-macchiato.jpg
+   2. In index.html, replace the <div class="coffee-card-icon">...</div>
+      inside a card with:
+
+      <img src="images/coffee/caramel-macchiato.jpg"
+           alt="Caramel Macchiato"
+           class="coffee-card-image" />
+
+   3. Add this matching CSS rule here in featured-coffee.css:
+
+      .coffee-card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+      }
+
+      ("object-fit: cover" crops the photo to fill the box neatly
+      without stretching or distorting it.)
+-------------------------------------------------------------------------- */

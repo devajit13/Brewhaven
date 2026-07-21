@@ -1,0 +1,215 @@
+/* ==========================================================================
+   GALLERY.CSS
+   Styles for the full Gallery page: a filterable photo grid plus a
+   full-screen "lightbox" that opens when a photo is clicked. The
+   open/close/navigate logic lives in js/gallery.js — this file only
+   controls appearance.
+   ========================================================================== */
+
+.gallery-page {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+/* --------------------------------------------------------------------------
+   FILTER TABS
+   --------------------------------------------------------------------------
+   Same visual style as the Menu page's filters, reused here for
+   consistency across the site.
+-------------------------------------------------------------------------- */
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.gallery-filter-btn {
+  padding: 0.6rem 1.5rem;
+  border: 2px solid var(--color-secondary);
+  border-radius: 50px;
+  font-weight: 500;
+  color: var(--color-primary);
+  background-color: transparent;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.gallery-filter-btn:hover {
+  background-color: var(--color-secondary);
+}
+
+.gallery-filter-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   PHOTO GRID
+   --------------------------------------------------------------------------
+   "auto-fit / minmax" again (same trick from Why Choose Us) — the
+   grid reflows itself across screen sizes with no extra media query.
+-------------------------------------------------------------------------- */
+.gallery-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.gallery-photo-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-photo-item.hidden {
+  display: none;
+}
+
+.gallery-photo-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: transform var(--transition-medium);
+}
+
+.gallery-photo-item:hover .gallery-photo-inner {
+  transform: scale(1.08);
+}
+
+.gallery-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(43, 29, 22, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.gallery-photo-item:hover .gallery-photo-overlay {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   LIGHTBOX
+   --------------------------------------------------------------------------
+   A full-screen overlay for viewing one photo at a time, with
+   Prev/Next/Close controls. Hidden by default; js/gallery.js adds
+   the ".open" class to reveal it.
+-------------------------------------------------------------------------- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background-color: rgba(20, 13, 9, 0.92);
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.open {
+  display: flex;
+  /* We switch "display" between "none" and "flex" with JavaScript
+     (rather than CSS opacity/visibility) because a hidden lightbox
+     should be completely removed from the page's layout and totally
+     unclickable — "display: none" guarantees both. */
+}
+
+.lightbox-content {
+  position: relative;
+  width: min(600px, 90vw);
+  /* "min(600px, 90vw)" picks whichever value is SMALLER: on a wide
+     desktop screen, that's 600px; on a narrow phone, 90vw (90% of
+     the screen width) becomes smaller instead, so the lightbox never
+     overflows off-screen on any device. */
+  text-align: center;
+}
+
+.lightbox-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+}
+
+.lightbox-caption {
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   LIGHTBOX CONTROLS
+-------------------------------------------------------------------------- */
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  font-size: 1.1rem;
+  transition: background-color var(--transition-fast);
+}
+
+.lightbox-close:hover {
+  background-color: var(--color-accent);
+}
+
+.lightbox-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  font-size: 1.2rem;
+  transition: background-color var(--transition-fast);
+}
+
+.lightbox-arrow:hover {
+  background-color: var(--color-accent);
+}
+
+.lightbox-arrow.prev {
+  left: 30px;
+}
+
+.lightbox-arrow.next {
+  right: 30px;
+}
+
+/* --------------------------------------------------------------------------
+   NOTE: USING REAL PHOTOS INSTEAD OF ICON PLACEHOLDERS
+   --------------------------------------------------------------------------
+   1. Add each real photo's src to a "data-photo" attribute on its
+      matching .gallery-photo-item in gallery.html, e.g.:
+
+      <div class="gallery-photo-item" data-photo="images/gallery/shot-1.jpg" ...>
+
+   2. In js/gallery.js, inside "openLightbox()", replace the line that
+      sets the lightbox icon with one that sets an <img> src instead
+      (swap the <i> tag inside .lightbox-photo for a real <img> tag in
+      gallery.html first, then target it with
+      document.querySelector(".lightbox-photo img").src = photoUrl).
+-------------------------------------------------------------------------- */

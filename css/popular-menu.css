@@ -1,0 +1,134 @@
+/* ==========================================================================
+   POPULAR-MENU.CSS
+   Styles for the "Popular Menu" section — a filterable preview of
+   menu items grouped into categories (Coffee, Pastries, Cold Drinks).
+   ========================================================================== */
+
+.popular-menu {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   FILTER TABS
+   --------------------------------------------------------------------------
+   These buttons let the visitor filter the menu items below without
+   reloading the page. The actual show/hide logic happens in
+   js/script.js — this file only handles what the buttons LOOK like.
+-------------------------------------------------------------------------- */
+.menu-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* flex-wrap: wrap lets buttons drop to a new line instead of
+     squeezing or overflowing if the screen is too narrow to fit
+     them all on one row. */
+  gap: 1rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.menu-filter-btn {
+  padding: 0.6rem 1.5rem;
+  border: 2px solid var(--color-secondary);
+  border-radius: 50px;
+  font-weight: 500;
+  color: var(--color-primary);
+  background-color: transparent;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.menu-filter-btn:hover {
+  background-color: var(--color-secondary);
+}
+
+/* The ".active" class is added/removed by JavaScript to whichever
+   button the visitor last clicked, so they can always see which
+   filter is currently selected. */
+.menu-filter-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   MENU ITEMS GRID
+-------------------------------------------------------------------------- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  border-radius: 12px;
+  transition: background-color var(--transition-fast);
+}
+
+.menu-item:hover {
+  background-color: var(--color-background);
+}
+
+/* "display: none" hides an element completely, as if it were never
+   in the HTML at all. JavaScript adds this class to items that don't
+   match the currently selected filter. */
+.menu-item.hidden {
+  display: none;
+}
+
+.menu-item-icon {
+  flex-shrink: 0;
+  /* flex-shrink: 0 stops this icon from getting squished if the text
+     next to it is long — without it, Flexbox may shrink ALL children
+     (including the icon) to make everything fit. */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--color-primary);
+}
+
+.menu-item-info {
+  flex: 1;
+  /* flex: 1 tells this element "grow to fill whatever space is left
+     over" — so the text block takes up all remaining width next to
+     the fixed-size icon. */
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.menu-item-text h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.menu-item-text p {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.menu-item-price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-accent);
+  white-space: nowrap;
+  /* white-space: nowrap stops the price ("$4.25") from ever breaking
+     onto two lines, no matter how tight the space gets. */
+}
+
+/* --------------------------------------------------------------------------
+   "VIEW FULL MENU" LINK
+-------------------------------------------------------------------------- */
+.popular-menu-cta {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}

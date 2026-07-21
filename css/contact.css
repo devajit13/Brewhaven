@@ -1,0 +1,174 @@
+/* ==========================================================================
+   CONTACT.CSS
+   Styles for the Contact page: a two-column layout (form + info),
+   plus an embedded map. Form validation logic lives in js/script.js.
+   ========================================================================== */
+
+.contact-page {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT FORM
+-------------------------------------------------------------------------- */
+.contact-form-card {
+  background-color: var(--color-white);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(43, 29, 22, 0.06);
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+}
+
+/* Two fields side by side (Name + Email) on wide screens. */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid #e4d9cc;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.form-textarea {
+  resize: vertical;
+  /* "resize: vertical" lets the visitor drag the textarea taller or
+     shorter, but not wider — keeping it from breaking the layout. */
+  min-height: 140px;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* Applied by JavaScript when a field fails validation on submit. */
+.form-input.error,
+.form-textarea.error {
+  border-color: #c0392b;
+}
+
+.form-error-text {
+  display: none;
+  color: #c0392b;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.form-error-text.show {
+  display: block;
+}
+
+.form-submit-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.form-success-message {
+  display: none;
+  margin-top: 1.2rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  background-color: #e3f3e5;
+  color: #2f6d38;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.form-success-message.show {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT INFO SIDEBAR
+-------------------------------------------------------------------------- */
+.contact-info-card {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-info-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: rgba(217, 164, 65, 0.15);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.contact-info-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #cbb9a8;
+  margin-bottom: 0.2rem;
+}
+
+.contact-info-value {
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   MAP EMBED
+-------------------------------------------------------------------------- */
+.contact-map {
+  border-radius: 16px;
+  overflow: hidden;
+  /* "overflow: hidden" here clips the embedded map's square corners
+     to match our rounded-corner design, since the <iframe> itself
+     can't be rounded directly. */
+  box-shadow: 0 10px 25px rgba(43, 29, 22, 0.06);
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 320px;
+  border: none;
+  display: block;
+}

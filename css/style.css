@@ -1,0 +1,287 @@
+/* ==========================================================================
+   STYLE.CSS
+   This is our GLOBAL stylesheet. It holds things that are used
+   on EVERY page: colors, fonts, resets, and basic body styles.
+   Think of this file as the "foundation" of a house — every other
+   CSS file (navbar.css, hero.css, etc.) builds on top of it.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS VARIABLES (also called "Custom Properties")
+   --------------------------------------------------------------------------
+   A variable lets us store a value (like a color) once, and reuse it
+   everywhere. If we ever want to change our brand color, we only have
+   to change it in ONE place instead of hunting through every file.
+
+   We define variables inside ":root", which means "the very top of
+   the document". This makes them available on every single page.
+-------------------------------------------------------------------------- */
+:root {
+  /* Brand colors */
+  --color-primary: #6f4e37;   /* Coffee brown — main brand color */
+  --color-secondary: #c4a484; /* Light latte tan — secondary color */
+  --color-background: #f8f4ef;/* Warm off-white — page background */
+  --color-dark: #2b1d16;      /* Deep espresso — used for text/footer */
+  --color-accent: #d9a441;    /* Golden caramel — used for highlights */
+
+  /* Text colors */
+  --color-text: var(--color-dark);
+  --color-text-light: #6b5b4f;
+  --color-white: #ffffff;
+
+  /* Fonts */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
+
+  /* Reusable spacing values — keeps spacing consistent site-wide */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+
+  /* Reusable transition speed for hover effects */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+}
+
+/* --------------------------------------------------------------------------
+   CSS RESET
+   --------------------------------------------------------------------------
+   Every browser has slightly different default styles for things like
+   margin and padding. The "*" selector below means "select every
+   element on the page" so we can remove those inconsistent defaults
+   and start from a clean, predictable baseline.
+-------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* box-sizing: border-box means padding and border are INCLUDED
+     inside an element's width/height, instead of adding to it.
+     This makes layout math much easier to predict. */
+}
+
+/* --------------------------------------------------------------------------
+   BASE BODY STYLES
+   --------------------------------------------------------------------------
+   These styles apply to the whole page since <body> wraps everything.
+-------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  /* Makes clicking an on-page link (like a navbar link to a section)
+     scroll smoothly instead of jumping instantly. */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+  /* line-height controls the vertical spacing between lines of text.
+     1.6 means each line is 1.6x the font size tall, which makes
+     paragraphs easier to read. */
+}
+
+/* --------------------------------------------------------------------------
+   HEADINGS
+   --------------------------------------------------------------------------
+   All headings (h1–h6) use our elegant serif "heading" font.
+-------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  color: var(--color-dark);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   LINKS
+   --------------------------------------------------------------------------
+   By default, browsers make links blue and underlined. We remove
+   that so WE can decide exactly how links look in each section.
+-------------------------------------------------------------------------- */
+a {
+  text-decoration: none;
+  color: inherit;
+  /* color: inherit means "use whatever color your parent element uses"
+     instead of the browser's default blue. */
+}
+
+/* --------------------------------------------------------------------------
+   LISTS
+   --------------------------------------------------------------------------
+   Remove the default bullet points/numbers so we can style lists
+   (like the navbar menu, which is really a <ul>) ourselves.
+-------------------------------------------------------------------------- */
+ul,
+ol {
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   IMAGES
+   --------------------------------------------------------------------------
+   Prevent images from overflowing their container on small screens.
+-------------------------------------------------------------------------- */
+img {
+  max-width: 100%;
+  display: block;
+  /* display: block removes the small, mysterious gap that browsers
+     add underneath images by default (images are "inline" elements
+     by default, and inline elements leave room for letter descenders
+     like the tail on a lowercase "g"). */
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   --------------------------------------------------------------------------
+   A shared base style for every button on the site. Individual
+   sections can still override this if a specific button needs to
+   look different.
+-------------------------------------------------------------------------- */
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  /* cursor: pointer changes the mouse icon to a hand when hovering,
+     signaling to the user "this is clickable". */
+  border: none;
+  background: none;
+}
+
+/* --------------------------------------------------------------------------
+   REUSABLE UTILITY CLASSES
+   --------------------------------------------------------------------------
+   Small helper classes we can reuse across many sections instead of
+   repeating the same CSS rules over and over.
+-------------------------------------------------------------------------- */
+
+/* Constrains content to a max width and centers it — most sections
+   will wrap their content in a <div class="container"> */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* margin: 0 auto means "no top/bottom margin, and automatically
+     calculate equal left/right margin" — this is the classic trick
+     for horizontally centering a block on the page. */
+  padding: 0 var(--spacing-lg);
+}
+
+/* A reusable "pill" style button used across the site (hero button,
+   newsletter button, menu "Order Now" buttons, etc.) */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background-color var(--transition-fast),
+    transform var(--transition-fast);
+  /* transition tells the browser: "when background-color or transform
+     changes, animate that change smoothly over var(--transition-fast)
+     instead of snapping instantly." This is what makes hover effects
+     feel polished instead of jarring. */
+}
+
+.btn:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-2px);
+  /* translateY(-2px) nudges the button up by 2 pixels on hover,
+     giving a subtle "lift" feeling. */
+}
+
+/* --------------------------------------------------------------------------
+   PAGE HEADER (used by every INNER page: Menu, About, Gallery, Contact)
+   --------------------------------------------------------------------------
+   The Home page has a big full-screen hero. Inner pages instead get a
+   smaller, consistent banner — just a title and a breadcrumb trail —
+   so visitors always know which page they're on and how to get back.
+   Living here in style.css (not its own file) because every inner
+   page reuses the EXACT same styles, unlike hero.css which is unique
+   to the Home page alone.
+-------------------------------------------------------------------------- */
+.page-header {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  text-align: center;
+  padding: 4rem 0 3rem;
+}
+
+.page-header-title {
+  color: var(--color-white);
+  font-size: 2.6rem;
+  margin-bottom: 0.6rem;
+}
+
+/* The "breadcrumb" is the small "Home / Menu" trail that shows a
+   visitor their current location within the site. */
+.page-header-breadcrumb {
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+}
+
+.page-header-breadcrumb a {
+  color: var(--color-secondary);
+  transition: color var(--transition-fast);
+}
+
+.page-header-breadcrumb a:hover {
+  color: var(--color-accent);
+}
+
+/* The "/" separator between breadcrumb links. Styled slightly
+   differently so it doesn't look clickable like the links around it. */
+.page-header-breadcrumb span {
+  margin: 0 0.4rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   PAGE HEADER (a.k.a. "PAGE BANNER")
+   --------------------------------------------------------------------------
+   Every inner page (Menu, About, Gallery, Contact) uses this same
+   short banner below the navbar — a page title plus a small
+   breadcrumb trail. It lives here in style.css (rather than in a
+   single page's CSS file) because it's shared across MULTIPLE pages,
+   not specific to just one.
+-------------------------------------------------------------------------- */
+.page-header {
+  background-color: var(--color-dark);
+  padding: 3.5rem 0;
+  text-align: center;
+}
+
+.page-header-title {
+  color: var(--color-white);
+  font-size: 2.6rem;
+  margin-bottom: 0.6rem;
+}
+
+/* A "breadcrumb" shows the visitor their current location within the
+   site's structure, e.g. "Home / Menu". The ">" separator is inserted
+   with the ::after pseudo-element trick we first used in navbar.css. */
+.page-header-breadcrumb {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+}
+
+.page-header-breadcrumb a {
+  color: var(--color-secondary);
+  transition: color var(--transition-fast);
+}
+
+.page-header-breadcrumb a:hover {
+  color: var(--color-accent);
+}
+
+.page-header-breadcrumb span {
+  color: #8a7a6d;
+}

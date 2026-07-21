@@ -1,0 +1,105 @@
+/* ==========================================================================
+   NEWSLETTER.CSS
+   Styles for the "Newsletter" section — an email signup form.
+   Validation and submit-handling logic lives in js/script.js; this
+   file only controls what the form LOOKS like.
+   ========================================================================== */
+
+.newsletter {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-primary);
+  text-align: center;
+}
+
+.newsletter .section-title,
+.newsletter-subtitle {
+  color: var(--color-white);
+}
+
+.newsletter-subtitle {
+  max-width: 480px;
+  margin: 0 auto var(--spacing-lg);
+  color: #f0e4d8;
+}
+
+/* --------------------------------------------------------------------------
+   THE FORM
+   --------------------------------------------------------------------------
+   Flexbox lines up the email input and the submit button side by
+   side, and wraps them onto separate lines automatically if the
+   screen is too narrow to fit both.
+-------------------------------------------------------------------------- */
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.newsletter-input {
+  flex: 1;
+  /* flex: 1 lets the input grow to fill available space, while the
+     button next to it just stays as wide as its own content needs. */
+  min-width: 220px;
+  padding: 0.9rem 1.4rem;
+  border-radius: 50px;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+/* Style the placeholder text (the light grey hint text shown before
+   someone types) so it matches our design instead of the browser's
+   default grey. */
+.newsletter-input::placeholder {
+  color: var(--color-text-light);
+}
+
+/* A focus outline that's visible and on-brand (never remove focus
+   styles entirely — visitors navigating by keyboard rely on it to
+   see which field they're currently in). */
+.newsletter-input:focus {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.newsletter-submit {
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  font-weight: 600;
+  transition: background-color var(--transition-fast);
+}
+
+.newsletter-submit:hover {
+  background-color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   FEEDBACK MESSAGE
+   --------------------------------------------------------------------------
+   Hidden by default. JavaScript adds ".show" and either ".success" or
+   ".error" depending on whether the typed email looked valid.
+-------------------------------------------------------------------------- */
+.newsletter-message {
+  display: none;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.newsletter-message.show {
+  display: block;
+}
+
+.newsletter-message.success {
+  color: #bfe6c4;
+}
+
+.newsletter-message.error {
+  color: #f3b6b6;
+}

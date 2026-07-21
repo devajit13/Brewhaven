@@ -1,0 +1,85 @@
+/* ==========================================================================
+   WHY-CHOOSE-US.CSS
+   Styles for the "Why Choose Us" section — a set of feature
+   highlights (Ethically Sourced, Freshly Roasted, etc.) in a grid.
+
+   This section introduces a SELF-RESPONSIVE grid using
+   "repeat(auto-fit, minmax(...))" — a Grid trick that reflows
+   automatically as the screen shrinks, WITHOUT needing a media query.
+   ========================================================================== */
+
+.why-choose-us {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-dark);
+  /* A dark section breaks up the rhythm of the page — most sections
+     use the light cream background, so this one stands out visually
+     as you scroll, signaling "this part matters." */
+}
+
+/* Override the default (dark-text) section header colors, since this
+   section sits on a dark background and needs light text instead. */
+.why-choose-us .section-title,
+.why-choose-us .section-subtitle {
+  color: var(--color-white);
+}
+
+.why-choose-us .section-subtitle {
+  color: #cbb9a8;
+}
+
+/* --------------------------------------------------------------------------
+   SELF-RESPONSIVE GRID
+   --------------------------------------------------------------------------
+   "repeat(auto-fit, minmax(220px, 1fr))" reads as:
+
+     "Fit as many columns as will comfortably reach at least 220px
+      wide each ('minmax(220px, 1fr)'), automatically dropping to
+      fewer columns per row when the container gets too narrow
+      ('auto-fit')."
+
+   This means the grid reflows itself across desktop, tablet, and
+   mobile with ZERO extra media queries — Grid does the math for us.
+-------------------------------------------------------------------------- */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.why-item {
+  text-align: center;
+}
+
+.why-item-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--color-accent);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+/* A nice small detail: the icon badge fills solid on hover instead
+   of staying just an outline. */
+.why-item:hover .why-item-icon {
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+}
+
+.why-item-title {
+  color: var(--color-white);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.why-item-description {
+  color: #cbb9a8;
+  font-size: 0.9rem;
+  max-width: 260px;
+  margin: 0 auto;
+}

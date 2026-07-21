@@ -1,0 +1,270 @@
+/* ==========================================================================
+   RESPONSIVE.CSS
+   This file holds ALL of our media queries, for every section of the
+   site. Keeping every responsive rule in ONE file (instead of
+   scattering media queries across navbar.css, hero.css, menu.css...)
+   makes it much easier to see, at a glance, everything that changes
+   on smaller screens.
+
+   A "media query" is a CSS rule that says: "only apply these styles
+   IF the browser window matches a certain condition" — most commonly,
+   a maximum or minimum width. This is how one website can rearrange
+   itself to look good on a phone, a tablet, AND a desktop.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   TABLET AND BELOW (screens 992px wide or narrower)
+   --------------------------------------------------------------------------
+   We will add tablet-specific tweaks here as we build more sections
+   (hero, menu grid, gallery grid, etc).
+-------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .navbar-container {
+    padding: 1rem 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-preview-image-wrap {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .about-story-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-story-image-wrap {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .about-preview-text .section-header {
+    text-align: center;
+  }
+
+  .about-preview-text {
+    text-align: center;
+  }
+
+  .about-story-text .section-header {
+    text-align: center;
+  }
+
+  .about-story-text {
+    text-align: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE (screens 768px wide or narrower)
+   --------------------------------------------------------------------------
+   This is where the navbar switches from "horizontal row of links" to
+   "hamburger icon + hidden slide-down menu".
+-------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Show the hamburger icon (it's hidden on desktop by default) */
+  .navbar-toggle {
+    display: flex;
+  }
+
+  /* Turn the links list into a full-width dropdown panel that is
+     hidden by default... */
+  .navbar-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background-color: var(--color-background);
+    box-shadow: 0 10px 15px rgba(43, 29, 22, 0.08);
+
+    /* This trio (max-height + overflow + transition) is a common
+       trick for animating something open/closed when we don't know
+       its exact height in advance. We can't animate "display: none"
+       to "display: block" directly, but we CAN animate max-height. */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-medium);
+  }
+
+  /* ...and revealed when JavaScript adds the "show" class */
+  .navbar-links.show {
+    max-height: 400px;
+  }
+
+  .navbar-link {
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Remove the sliding underline effect on mobile — it doesn't make
+     sense visually once links are stacked vertically. */
+  .navbar-link::after {
+    display: none;
+  }
+
+  .navbar-btn {
+    margin: 1rem 1.5rem;
+  }
+
+  .hero {
+    min-height: 70vh;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-description {
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-filters {
+    gap: 0.6rem;
+  }
+
+  .menu-filter-btn {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .gallery-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonial-arrow.prev {
+    left: 0;
+  }
+
+  .testimonial-arrow.next {
+    right: 0;
+  }
+
+  .testimonial-slider {
+    padding: 0 3rem;
+  }
+
+  .testimonial-quote {
+    font-size: 1.15rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-input,
+  .newsletter-submit {
+    width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-brand-logo,
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-brand-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-contact-item {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .page-header {
+    padding: 3rem 0 2rem;
+  }
+
+  .page-header-title {
+    font-size: 2rem;
+  }
+
+  .about-stat-number {
+    font-size: 2.2rem;
+  }
+
+  .gallery-filters {
+    gap: 0.6rem;
+  }
+
+  .gallery-filter-btn {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .lightbox-arrow.prev {
+    left: 10px;
+  }
+
+  .lightbox-arrow.next {
+    right: 10px;
+  }
+
+  .lightbox-content {
+    width: 90vw;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form-card {
+    padding: 1.8rem;
+  }
+}

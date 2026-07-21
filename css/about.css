@@ -1,0 +1,178 @@
+/* ==========================================================================
+   ABOUT.CSS
+   Styles specific to the About page (about.html): the full story
+   section, an animated stats strip, and the team grid.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   OUR STORY (full version)
+   --------------------------------------------------------------------------
+   Same two-column "image + text" pattern as the Home page's About
+   Preview (position/z-index layered accent square), just with more
+   paragraphs since this IS the full story, not a teaser.
+-------------------------------------------------------------------------- */
+.about-story {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+.about-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.about-story-image-wrap {
+  position: relative;
+}
+
+.about-story-accent {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.about-story-image {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #8a6a4d 0%, #6f4e37 60%, #4a3223 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 3rem;
+}
+
+.about-story-text .section-header {
+  text-align: left;
+  margin: 0 0 1.2rem;
+}
+
+.about-story-text p {
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   STATS STRIP
+   --------------------------------------------------------------------------
+   Big numbers that count up from 0 when they scroll into view. The
+   counting animation lives in js/script.js (using the
+   IntersectionObserver API) — this file only styles the layout.
+-------------------------------------------------------------------------- */
+.about-stats {
+  background-color: var(--color-dark);
+  padding: var(--spacing-lg) 0;
+}
+
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.about-stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  /* The "+" symbol appended after the number lives in the HTML, not
+     here — since it should never be part of the number JavaScript
+     counts up (see js/script.js). */
+}
+
+.about-stat-label {
+  color: #cbb9a8;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   TEAM SECTION
+-------------------------------------------------------------------------- */
+.about-team {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-white);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.team-card {
+  text-align: center;
+}
+
+.team-card-photo {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8a6a4d 0%, #6f4e37 60%, #4a3223 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 2.5rem;
+}
+
+.team-card-name {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.team-card-role {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+.team-card-socials {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.team-card-social-link {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.team-card-social-link:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   NOTE: USING REAL PHOTOS INSTEAD OF THE PLACEHOLDERS
+   --------------------------------------------------------------------------
+   Story image: replace .about-story-image's <div> with an <img>
+   exactly as described in the matching note in css/about-preview.css.
+
+   Team photos: replace each <div class="team-card-photo">...</div>
+   with <img src="images/team/name.jpg" alt="..." class="team-card-photo" />
+   then add "object-fit: cover;" to the .team-card-photo rule above.
+-------------------------------------------------------------------------- */
